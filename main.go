@@ -84,6 +84,6 @@ func RandomWord() string {
 func ReadLn() string {
 	reader := bufio.NewReader(os.Stdin)
 	text, _ := reader.ReadString('\n')
-	text = strings.TrimSuffix(text, "\r\n") // Werk je op Mac of Linux? Maak hier dan /r/n van
+	text = strings.TrimSuffix(text, "\r\n")
 	return text
 }
