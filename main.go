@@ -13,13 +13,17 @@ func main() {
 	voortgang := ""
 	fouteLetters := ""
 	aantalFouten := 9
-	isrunning := true
 
 	fmt.Println("Welkom bij galgje!")
 	fmt.Println("Antwoord: " + antwoord)
 	voortgang = strings.Repeat("_", len(antwoord))
 	var letter string
-	for isrunning {
+	for true {
+		letter = printGalgje(voortgang, fouteLetters, aantalFouten)
+		if len(letter) > 1 {
+			letter = string(letter[0])
+		}
+
 		if strings.Contains(antwoord, letter) {
 			for i := 0; i < len(antwoord); i++ {
 				if string(antwoord[i]) == letter {
@@ -35,17 +39,28 @@ func main() {
 			fmt.Println("--------------------")
 			fmt.Println("Het woord was " + antwoord + ".")
 			fmt.Println("Lekker man, je hebt gewonnen.")
-			isrunning = false
+			fmt.Println("--------------------")
 		}
 
 		if aantalFouten == 0 {
 			fmt.Println("--------------------")
 			fmt.Println("JE BEN ZO EXTREEM NOOB LOZER. IMAGINE TRYING TO PLAY THIS GAME AND LOSE.")
-			isrunning = false
 		}
 
-		if isrunning {
-			letter = printGalgje(voortgang, fouteLetters, aantalFouten)
+		if aantalFouten == 0 || voortgang == antwoord {
+			fmt.Println("Wil je nog een keer spelen? (y/n)")
+			antwoord = strings.ToLower(ReadLn())
+			if antwoord == "y" {
+				antwoord = strings.ToLower(RandomWord())
+				voortgang = ""
+				fouteLetters = ""
+				aantalFouten = 9
+				fmt.Println("Antwoord: " + antwoord)
+				voortgang = strings.Repeat("_", len(antwoord))
+			} else {
+				fmt.Println("Ok, doei.")
+				break
+			}
 		}
 	}
 
