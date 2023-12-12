@@ -9,13 +9,13 @@ import (
 )
 
 func main() {
-	antwoord := strings.ToLower(RandomWord())
-	voortgang := ""
-	fouteLetters := ""
-	aantalFouten := 9
+	var antwoord string = strings.ToLower(RandomWord())
+	var voortgang string
+	var fouteLetters []string
+	var aantalFouten int = 9
 
-	fmt.Println("Welkom bij galgje!")
-	fmt.Println("Antwoord: " + antwoord)
+	fmt.Println("Welkom bij het legendarische spel galgje.\n")
+
 	voortgang = strings.Repeat("_", len(antwoord))
 	var letter string
 	for true {
@@ -31,19 +31,19 @@ func main() {
 				}
 			}
 		} else {
-			fouteLetters += letter
+			fouteLetters = append(fouteLetters, letter)
 			aantalFouten--
 		}
 
 		if voortgang == antwoord {
-			fmt.Println("--------------------")
+			fmt.Println("\n\n")
 			fmt.Println("Het woord was " + antwoord + ".")
 			fmt.Println("Lekker man, je hebt gewonnen.")
-			fmt.Println("--------------------")
 		}
 
 		if aantalFouten == 0 {
-			fmt.Println("--------------------")
+			fmt.Println("\n\n")
+			fmt.Println("Het woord was " + antwoord + ".")
 			fmt.Println("JE BEN ZO EXTREEM NOOB LOZER. IMAGINE TRYING TO PLAY THIS GAME AND LOSE.")
 		}
 
@@ -53,7 +53,7 @@ func main() {
 			if antwoord == "y" {
 				antwoord = strings.ToLower(RandomWord())
 				voortgang = ""
-				fouteLetters = ""
+				fouteLetters = []string{}
 				aantalFouten = 9
 				fmt.Println("Antwoord: " + antwoord)
 				voortgang = strings.Repeat("_", len(antwoord))
@@ -66,11 +66,11 @@ func main() {
 
 }
 
-func printGalgje(voortgang string, fouteLetters string, aantalFouten int) string {
-	fmt.Println("--------------------")
-	fmt.Println("Je woord is " + voortgang)
-	fmt.Println("Je hebt nog " + fmt.Sprint(aantalFouten) + " fouten over")
-	fmt.Println("Je hebt de letters [" + fouteLetters + "] al geprobeerd")
+func printGalgje(voortgang string, fouteLetters []string, aantalFouten int) string {
+	var fouteLettersString = strings.Join(fouteLetters, ", ")
+	fmt.Println("\n\n")
+	fmt.Println("Vooruitgang: " + voortgang + "| Nog " + fmt.Sprint(aantalFouten) + " fouten over")
+	fmt.Println("Je hebt de letters [" + fouteLettersString + "] al geprobeerd")
 	fmt.Print("Geef een letter: ")
 	volgendeLetter := ReadLn()
 
